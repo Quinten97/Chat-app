@@ -4,21 +4,16 @@ const roomContainer = document.getElementById("room-container");
 const messageForm = document.getElementById("send-container");
 const messageInput = document.getElementById("message-input");
 
-function toggleFullscreen() {
-  let elem = document.querySelector("body");
-
-  if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch((err) => {
-      alert(
-        `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-      );
-    });
-  } else {
-    document.exitFullscreen();
-  }
+const docElm = document.documentElement;
+if (docElm.requestFullscreen) {
+  docElm.requestFullscreen();
+} else if (docElm.mozRequestFullScreen) {
+  docElm.mozRequestFullScreen();
+} else if (docElm.webkitRequestFullScreen) {
+  docElm.webkitRequestFullScreen();
+} else if (docElm.msRequestFullscreen) {
+  docElm.msRequestFullscreen();
 }
-
-toggleFullscreen();
 
 if (messageForm != null) {
   const name = prompt("What is your name?");

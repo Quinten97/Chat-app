@@ -18,6 +18,8 @@ function toggleFullscreen() {
   }
 }
 
+toggleFullscreen();
+
 if (messageForm != null) {
   const name = prompt("What is your name?");
   appendMessage("You joined");

@@ -1,4 +1,5 @@
 const express = require("express");
+const port = process.env.PORT;
 const app = express();
 const path = require("node:path");
 const server = require("http").Server(app);
@@ -36,7 +37,7 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomName: req.params.room });
 });
 
-server.listen(8080);
+server.listen(port);
 
 io.on("connection", (socket) => {
   socket.on("new-user", (room, name) => {

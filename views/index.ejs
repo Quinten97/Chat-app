@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat App</title>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap");
+
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      body {
+        display: grid;
+        place-items: end center;
+        width: 100vw;
+        height: 100vh;
+        background-image: linear-gradient(
+          165deg,
+          hsl(315deg 73% 10%) 0%,
+          hsl(322deg 75% 15%) 6%,
+          hsl(329deg 77% 20%) 12%,
+          hsl(337deg 80% 25%) 18%,
+          hsl(344deg 83% 30%) 24%,
+          hsl(351deg 85% 35%) 29%,
+          hsl(359deg 88% 39%) 35%,
+          hsl(6deg 91% 44%) 41%,
+          hsl(13deg 94% 48%) 47%,
+          hsl(19deg 95% 51%) 53%,
+          hsl(23deg 96% 53%) 59%,
+          hsl(27deg 96% 56%) 65%,
+          hsl(31deg 97% 58%) 71%,
+          hsl(35deg 97% 60%) 76%,
+          hsl(38deg 98% 63%) 82%,
+          hsl(42deg 98% 65%) 88%,
+          hsl(46deg 99% 68%) 94%,
+          hsl(50deg 100% 70%) 100%
+        );
+      }
+
+      #room-container {
+        margin: 1rem 2rem;
+        padding: 2rem;
+        height: 80vh;
+        min-width: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .page-head {
+        color: white;
+      }
+
+      .room-item {
+        margin-top: 1rem;
+        padding: 0.25rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        place-items: start center;
+        background-color: white;
+        border-radius: 0.25rem;
+      }
+
+      .room-name {
+        height: 2rem;
+        display: grid;
+        place-items: center;
+      }
+
+      .join-button {
+        grid-column-start: 3;
+        height: 2rem;
+        width: 5rem;
+        display: grid;
+        place-items: center;
+        background-color: silver;
+        border-radius: 0.25rem;
+      }
+
+      .join-button:hover {
+        filter: brightness(0.75);
+      }
+
+      .join-button:active {
+        filter: brightness(0.75);
+      }
+
+      .room-form {
+        display: grid;
+        height: 2rem;
+        margin: 0rem 1rem;
+        margin-bottom: 2rem;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.5rem;
+      }
+
+      .room-input {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        padding-left: 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      .room-button {
+        grid-column-start: 3;
+        border-radius: 0.25rem;
+      }
+
+      .room-button:hover {
+        filter: brightness(0.75);
+      }
+
+      .room-button:active {
+        filter: brightness(0.75);
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="page-head">Simple Chat</h1>
+    <div id="room-container">
+      <% Object.keys(rooms).forEach(room => { %>
+      <div class="room-item">
+        <div class="room-name"><%= room %></div>
+        <a href="/<%= room %>" class="join-button">Join</a>
+      </div>
+      <% }) %>
+    </div>
+    <form action="/room" method="POST" class="room-form">
+      <input name="room" type="text" class="room-input" required />
+      <button type="submit" class="room-button">New Room</button>
+    </form>
+  </body>
+</html>

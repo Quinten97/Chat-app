@@ -2,7 +2,6 @@ const express = require("express");
 const port = process.env.PORT;
 const app = express();
 const path = require("path");
-var favicon = require("serve-favicon");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -12,7 +11,6 @@ const io = require("socket.io")(server, {
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 

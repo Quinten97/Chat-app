@@ -1,7 +1,8 @@
 const express = require("express");
 const port = process.env.PORT;
 const app = express();
-const path = require("node:path");
+const path = require("path");
+var favicon = require("serve-favicon");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -11,7 +12,8 @@ const io = require("socket.io")(server, {
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 const rooms = { "Demo Room": { users: {} } };
@@ -37,7 +39,7 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomName: req.params.room });
 });
 
-server.listen(port);
+server.listen(3000);
 
 io.on("connection", (socket) => {
   socket.on("new-user", (room, name) => {

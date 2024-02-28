@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-const rooms = {rooms: demo room};
+const rooms = { "Demo Room": { users: {} } };
 
 app.get("/", (req, res) => {
   res.render("index", { rooms: rooms });
@@ -37,7 +37,7 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomName: req.params.room });
 });
 
-server.listen(port);
+server.listen(3000);
 
 io.on("connection", (socket) => {
   socket.on("new-user", (room, name) => {
